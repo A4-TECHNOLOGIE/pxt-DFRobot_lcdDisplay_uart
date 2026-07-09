@@ -1,7 +1,7 @@
 {
     "name": "lcdDisplay",
-    "version": "0.0.7",
-    "description": "",
+    "version": "0.0.8",
+    "description": "DFRobot LCD display MakeCode extension with UART support for A4 microSySTEM.",
     "license": "MIT",
     "dependencies": {
         "core": "*"
