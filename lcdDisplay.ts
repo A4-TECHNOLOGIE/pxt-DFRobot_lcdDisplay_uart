@@ -729,9 +729,15 @@ namespace lcdDisplay {
                 pins.i2cWriteBuffer(address, pins.createBufferFromArray(data.slice(i * IIC_MAX_TRANSFER_SIZE, i * IIC_MAX_TRANSFER_SIZE + currentTransferSize)), remain > IIC_MAX_TRANSFER_SIZE)
                 remain = remain - currentTransferSize
                 i = i + 1
+                // The display firmware needs a short processing delay after
+                // every transfer, as required by the official DFRobot driver.
+                basic.pause(50)
             }
         } else {
             serial.writeBuffer(pins.createBufferFromArray(data.slice(0, len)))
+            // Keep consecutive UART commands from being merged or dropped by
+            // the display while it is still processing the previous frame.
+            basic.pause(50)
         }
     }
 }
