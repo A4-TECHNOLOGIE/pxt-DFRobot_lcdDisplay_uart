@@ -559,15 +559,68 @@ namespace lcdDisplay {
         updateChart(num, color, styles)
     }
 
-    /** Deletes a widget. */
+    /**
+     * Deletes a widget.
+     * @param type widget category returned by getLCDWidgetCategoryTwo
+     * @param num widget identifier, eg: 1
+     */
     //% block="delete %type=LCDWidgetCategoryTwo_conv number %num"
     //% num.min=1 num.max=255 num.defl=1
     //% weight=5
     //% group="Widget"
     //% advanced=true
     export function lcdDeleteWidget(type: number, num: number) {
+        let commandType = 0
+
+        // LCDWidgetCategoryTwo contains values intended for the MakeCode
+        // dropdown. The display protocol expects the draw-command identifier
+        // of the object instead, so the category must not be sent directly.
+        switch (type) {
+            case LCDWidgetCategoryTwo.Slider:
+                commandType = CMD_OF_DRAW_SLIDER
+                break
+            case LCDWidgetCategoryTwo.Bar:
+                commandType = CMD_OF_DRAW_BAR
+                break
+            case LCDWidgetCategoryTwo.Compass:
+                commandType = CMD_OF_DRAW_COMPASS
+                break
+            case LCDWidgetCategoryTwo.Gauge:
+                commandType = CMD_OF_DRAW_GAUGE
+                break
+            case LCDWidgetCategoryTwo.LineMeter:
+                commandType = CMD_OF_DRAW_LINE_METER
+                break
+            case LCDWidgetCategoryTwo.Chart:
+                commandType = CMD_OF_DRAW_LINE_CHART
+                break
+            case LCDWidgetCategoryTwo.Text:
+                commandType = CMD_OF_DRAW_TEXT
+                break
+            case LCDWidgetCategoryTwo.Line:
+                commandType = CMD_OF_DRAW_LINE
+                break
+            case LCDWidgetCategoryTwo.Rectangle:
+                commandType = CMD_OF_DRAW_RECT
+                break
+            case LCDWidgetCategoryTwo.Circle:
+                commandType = CMD_OF_DRAW_CIRCLE
+                break
+            case LCDWidgetCategoryTwo.Triangle:
+                commandType = CMD_OF_DRAW_TRIANGLE
+                break
+            case LCDWidgetCategoryTwo.Icon:
+                commandType = CMD_OF_DRAW_ICON_INTERNAL
+                break
+            case LCDWidgetCategoryTwo.Gif:
+                commandType = CMD_OF_DRAW_GIF_INTERNAL
+                break
+            default:
+                return
+        }
+
         let cmd = creatCommand(CMD_DELETE_OBJ, CMD_DELETE_OBJ_LEN)
-        cmd = cmd.concat([type, num])
+        cmd = cmd.concat([commandType, num])
         writeCommand(cmd, CMD_DELETE_OBJ_LEN)
     }
 

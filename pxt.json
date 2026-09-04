@@ -1,7 +1,7 @@
 {
     "name": "lcdDisplay",
     "version": "0.0.9",
-    "description": "DFRobot LCD display MakeCode extension with UART support for A4 microSySTEM.",
+    "description": "MakeCode extension for the DFRobot 2.8-inch color LCD with I2C and UART support for A4 Technologie microSySTEM models.",
     "license": "MIT",
     "dependencies": {
         "core": "*"
@@ -10,13 +10,15 @@
         "lcdDisplay.ts",
         "_locales/zh-cn/lcdDisplay-strings.json",
         "_locales/zh-cn/lcdDisplay-jsdoc-strings.json",
-        "README.md"
+        "README.md",
+        "TESTING.md"
     ],
     "testFiles": [
         "test.ts"
     ],
+    "public": true,
     "targetVersions": {
-        "target": "8.0.8",
+        "target": "8.0.22",
         "targetId": "microbit"
     },
     "supportedTargets": [
